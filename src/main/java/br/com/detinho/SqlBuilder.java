@@ -18,4 +18,8 @@ public final class SqlBuilder {
         return new BigDecimalScalar(new BigDecimal(value));
     }
     
+    public static Column col(String table, String column) {
+        return new Column(table, column);
+    }
+    
 }

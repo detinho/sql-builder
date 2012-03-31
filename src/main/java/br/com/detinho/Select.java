@@ -1,21 +1,22 @@
 package br.com.detinho;
 
-import java.util.ArrayList;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Set;
 
 public class Select {
 
-    private List<Selectable> columns = new ArrayList<Selectable>();
+    private Columns columns = new Columns();
     private Set<Table> tables = new LinkedHashSet<Table>();
+    
+    private MatchCriteria criteria = null;
 
     public void column(Selectable value) {
         columns.add(value);
     }
     
     public void column(String tableName, String columnName) {
-        columns.add(new Column(tableName, columnName));
+        Column column = new Column(tableName, columnName);
+        columns.add(column);
     }
 
     public String toSql() {
@@ -39,6 +40,23 @@ public class Select {
             sql += tabelas;
         }
         
+        if (criteria != null) {
+            sql += " WHERE " + criteria.write();
+        }
+        
         return sql;
+    }
+
+    public void where(String columnAlias, String operator, Scalar value) {
+        Selectable selectable = columns.byAlias(columnAlias);
+
+        criteria = new MatchCriteria(selectable, operator, value);
+    }
+
+    public void where(String leftColumn, String operator, String rightColumn) {
+        Selectable left = columns.byAlias(leftColumn);
+        Selectable right = columns.byAlias(rightColumn);
+        
+        criteria = new MatchCriteria(left, operator, right);
     }
 }
