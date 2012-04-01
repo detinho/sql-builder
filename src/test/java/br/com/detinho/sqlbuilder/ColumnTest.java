@@ -1,4 +1,4 @@
-package br.com.detinho;
+package br.com.detinho.sqlbuilder;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -7,6 +7,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Test;
+
+import br.com.detinho.sqlbuilder.Column;
+import br.com.detinho.sqlbuilder.Table;
 
 public class ColumnTest {
 

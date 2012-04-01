@@ -1,11 +1,13 @@
-package br.com.detinho;
+package br.com.detinho.sqlbuilder;
 
-import static br.com.detinho.SqlBuilder.decimal;
-import static br.com.detinho.SqlBuilder.integer;
-import static br.com.detinho.SqlBuilder.string;
+import static br.com.detinho.sqlbuilder.SqlBuilder.decimal;
+import static br.com.detinho.sqlbuilder.SqlBuilder.integer;
+import static br.com.detinho.sqlbuilder.SqlBuilder.string;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+
+import br.com.detinho.sqlbuilder.Select;
 
 public class SelectTest {
 

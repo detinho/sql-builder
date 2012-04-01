@@ -1,4 +1,4 @@
-package br.com.detinho;
+package br.com.detinho.sqlbuilder;
 
 public final class Table implements Writable {
 

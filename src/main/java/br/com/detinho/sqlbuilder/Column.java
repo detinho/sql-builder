@@ -1,8 +1,8 @@
-package br.com.detinho;
+package br.com.detinho.sqlbuilder;
 
 import java.util.Set;
 
-import static br.com.detinho.StringUtils.nullToStr;
+import static br.com.detinho.sqlbuilder.StringUtils.nullToStr;
 
 public final class Column implements Selectable {
 

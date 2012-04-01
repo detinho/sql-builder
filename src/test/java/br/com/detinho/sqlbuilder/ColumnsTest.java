@@ -1,11 +1,16 @@
-package br.com.detinho;
+package br.com.detinho.sqlbuilder;
 
 import static org.junit.Assert.*;
-import static br.com.detinho.SqlBuilder.*;
+import static br.com.detinho.sqlbuilder.SqlBuilder.*;
 
 import java.util.Iterator;
 
 import org.junit.Test;
+
+import br.com.detinho.sqlbuilder.Column;
+import br.com.detinho.sqlbuilder.Columns;
+import br.com.detinho.sqlbuilder.Scalar;
+import br.com.detinho.sqlbuilder.Selectable;
 
 public class ColumnsTest {
 

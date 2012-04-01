@@ -1,9 +1,17 @@
-package br.com.detinho;
+package br.com.detinho.sqlbuilder;
 
 import static org.junit.Assert.*;
-import static br.com.detinho.SqlBuilder.*;
+import static br.com.detinho.sqlbuilder.SqlBuilder.*;
 
 import org.junit.Test;
+
+import br.com.detinho.sqlbuilder.And;
+import br.com.detinho.sqlbuilder.BetweenCriteria;
+import br.com.detinho.sqlbuilder.Column;
+import br.com.detinho.sqlbuilder.Criteria;
+import br.com.detinho.sqlbuilder.MatchCriteria;
+import br.com.detinho.sqlbuilder.Or;
+import br.com.detinho.sqlbuilder.Scalar;
 
 public class CriteriaTest {
 
@@ -31,7 +39,7 @@ public class CriteriaTest {
         Criteria right = new MatchCriteria(column2, ">", ten);
         And andCriteria = new And(left, right);
         
-        assertEquals("TABLE.COLUMN = 1 AND OTHER_TABLE.COLUMN > 10",
+        assertEquals("(TABLE.COLUMN = 1 AND OTHER_TABLE.COLUMN > 10)",
             andCriteria.write());
     }
     
@@ -41,7 +49,20 @@ public class CriteriaTest {
         Criteria right = new MatchCriteria(column2, ">", ten);
         Or orCriteria = new Or(left, right);
         
-        assertEquals("TABLE.COLUMN = 1 OR OTHER_TABLE.COLUMN > 10",
+        assertEquals("(TABLE.COLUMN = 1 OR OTHER_TABLE.COLUMN > 10)",
             orCriteria.write());
+    }
+    
+    @Test
+    public void complexBooleanExpression() throws Exception {
+        Criteria first = new BetweenCriteria(column1, one, column2);
+        Criteria left = new MatchCriteria(column1, "=", one);
+        Criteria right = new MatchCriteria(column2, ">", ten);
+        Criteria finalCriteria = new Or(first, new And(left, right));
+        
+        String sql = "(TABLE.COLUMN BETWEEN 1 AND OTHER_TABLE.COLUMN OR " +
+        		"(TABLE.COLUMN = 1 AND OTHER_TABLE.COLUMN > 10))";
+        
+        assertEquals(sql, finalCriteria.write());
     }
 }
