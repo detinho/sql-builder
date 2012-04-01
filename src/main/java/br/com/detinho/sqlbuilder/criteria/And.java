@@ -2,6 +2,7 @@ package br.com.detinho.sqlbuilder.criteria;
 
 import java.util.Set;
 
+import br.com.detinho.sqlbuilder.Column;
 import br.com.detinho.sqlbuilder.Criteria;
 import br.com.detinho.sqlbuilder.Table;
 
@@ -13,6 +14,11 @@ public final class And implements Criteria {
     public And(Criteria left, Criteria right) {
         this.left = left;
         this.right = right;
+    }
+
+    public And(Column column1, Column column2) {
+        this.left = new SelectableCriteria(column1);
+        this.right = new SelectableCriteria(column2);
     }
 
     @Override

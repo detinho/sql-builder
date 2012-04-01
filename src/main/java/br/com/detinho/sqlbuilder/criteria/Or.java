@@ -3,6 +3,7 @@ package br.com.detinho.sqlbuilder.criteria;
 import java.util.Set;
 
 import br.com.detinho.sqlbuilder.Criteria;
+import br.com.detinho.sqlbuilder.Selectable;
 import br.com.detinho.sqlbuilder.Table;
 
 public class Or implements Criteria {
@@ -13,6 +14,11 @@ public class Or implements Criteria {
     public Or(Criteria left, Criteria right) {
         this.left = left;
         this.right = right;
+    }
+    
+    public Or(Selectable column1, Selectable column2) {
+        this.left = new SelectableCriteria(column1);
+        this.right = new SelectableCriteria(column2);
     }
 
     @Override
