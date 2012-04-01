@@ -2,6 +2,10 @@ package br.com.detinho.sqlbuilder;
 
 import java.math.BigDecimal;
 
+import br.com.detinho.sqlbuilder.scalar.BigDecimalScalar;
+import br.com.detinho.sqlbuilder.scalar.IntegerScalar;
+import br.com.detinho.sqlbuilder.scalar.StringScalar;
+
 public final class SqlBuilder {
 
     private SqlBuilder() {}
