@@ -3,6 +3,8 @@ package br.com.detinho.sqlbuilder;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import br.com.detinho.sqlbuilder.criteria.MatchCriteria;
+
 public class Select {
 
     private Columns columns = new Columns();

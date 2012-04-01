@@ -1,20 +1,23 @@
-package br.com.detinho.sqlbuilder;
+package br.com.detinho.sqlbuilder.criteria;
 
 import java.util.Set;
 
-public class Or implements Criteria {
+import br.com.detinho.sqlbuilder.Criteria;
+import br.com.detinho.sqlbuilder.Table;
+
+public final class And implements Criteria {
 
     private final Criteria left;
     private final Criteria right;
 
-    public Or(Criteria left, Criteria right) {
+    public And(Criteria left, Criteria right) {
         this.left = left;
         this.right = right;
     }
 
     @Override
     public String write() {
-        return String.format("(%s OR %s)", left.write(), right.write());
+        return String.format("(%s AND %s)", left.write(), right.write());
     }
 
     @Override
@@ -22,6 +25,5 @@ public class Or implements Criteria {
         left.addTable(tables);
         right.addTable(tables);
     }
-
 
 }

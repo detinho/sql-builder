@@ -1,6 +1,10 @@
-package br.com.detinho.sqlbuilder;
+package br.com.detinho.sqlbuilder.criteria;
 
 import java.util.Set;
+
+import br.com.detinho.sqlbuilder.Criteria;
+import br.com.detinho.sqlbuilder.Selectable;
+import br.com.detinho.sqlbuilder.Table;
 
 public final class MatchCriteria implements Criteria {
 

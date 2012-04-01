@@ -5,13 +5,13 @@ import static br.com.detinho.sqlbuilder.SqlBuilder.*;
 
 import org.junit.Test;
 
-import br.com.detinho.sqlbuilder.And;
-import br.com.detinho.sqlbuilder.BetweenCriteria;
 import br.com.detinho.sqlbuilder.Column;
 import br.com.detinho.sqlbuilder.Criteria;
-import br.com.detinho.sqlbuilder.MatchCriteria;
-import br.com.detinho.sqlbuilder.Or;
 import br.com.detinho.sqlbuilder.Scalar;
+import br.com.detinho.sqlbuilder.criteria.And;
+import br.com.detinho.sqlbuilder.criteria.BetweenCriteria;
+import br.com.detinho.sqlbuilder.criteria.MatchCriteria;
+import br.com.detinho.sqlbuilder.criteria.Or;
 
 public class CriteriaTest {
 
