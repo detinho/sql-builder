@@ -1,6 +1,7 @@
 package br.com.detinho.sqlbuilder;
 
 import static br.com.detinho.sqlbuilder.SqlBuilder.col;
+import static br.com.detinho.sqlbuilder.StringUtils.removeTrailingComma;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -25,41 +26,54 @@ public class Select {
     }
 
     public String toSql() {
-        addTablesFromCriteria();
+        collectTablesFromColumns();
+        collectTablesFromCriteria();
         
         String sql = "SELECT ";
-        for (int index=0; index < columns.size(); index++) {
-            Selectable value = columns.get(index);
-            value.addTable(tables);
-            sql += value.write();
-
-            if (index < columns.size()-1)
-                sql += ", ";
-        }
+        sql = generateColumnsSql(sql);
+        sql = generateTablesSql(sql);
+        sql = generateWhereSql(sql);
         
+        return sql;
+    }
+    
+    private void collectTablesFromColumns() {
+        for (Selectable sel : columns)
+            sel.addTable(tables);
+    }
+    
+    private void collectTablesFromCriteria() {
+        if (criteria != null)
+            criteria.addTable(tables);
+    }
+    
+    private String generateColumnsSql(String sql) {
+        for (Selectable value : columns) {
+            sql += value.write() + ", ";
+        }
+        sql = removeTrailingComma(sql);
+        return sql;
+    }
+
+    private String generateTablesSql(String sql) {
         String tabelas = "";
         for (Table t : tables) {
             tabelas += t.write() + ", ";
         }
         
         if (! "".equals(tabelas)) {
-            tabelas = tabelas.trim();
-            tabelas = tabelas.substring(0, tabelas.length()-1);
-            
+            tabelas = removeTrailingComma(tabelas);
             sql += " FROM ";
             sql += tabelas;
         }
-        
+        return sql;
+    }
+    
+    private String generateWhereSql(String sql) {
         if (criteria != null) {
             sql += " WHERE " + criteria.write();
         }
-        
         return sql;
-    }
-
-    private void addTablesFromCriteria() {
-        if (criteria != null)
-            criteria.addTable(tables);
     }
 
     public void where(String columnAlias, String operator, Scalar value) {

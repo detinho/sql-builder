@@ -8,4 +8,10 @@ public final class StringUtils {
         return str == null ? "" : str;
     }
     
+    public static String removeTrailingComma(String string) {
+        string = string.trim();
+        string = string.substring(0, string.length()-1);
+        return string;
+    }
+    
 }
