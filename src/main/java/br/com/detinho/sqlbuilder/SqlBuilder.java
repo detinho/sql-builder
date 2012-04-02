@@ -25,5 +25,4 @@ public final class SqlBuilder {
     public static Column col(String table, String column) {
         return new Column(table, column);
     }
-    
 }
