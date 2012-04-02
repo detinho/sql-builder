@@ -60,25 +60,4 @@ public class ColumnsTest {
         Columns columns = new Columns();
         columns.byAlias("COLUMN");
     }
-    
-    @Test
-    public void getColumnIndex() {
-        Columns columns = new Columns();
-        Scalar numberOne = integer(1);
-        columns.add(numberOne);
-        
-        assertEquals(numberOne, columns.get(0));
-    }
-    
-    @Test
-    public void numberOfColulmns() {
-        Columns columns = new Columns();
-        Scalar numberOne = integer(1);
-        columns.add(numberOne);
-        columns.add(numberOne);
-        columns.add(numberOne);
-        
-        assertEquals(3, columns.size());
-    }
-
 }

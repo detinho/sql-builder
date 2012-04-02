@@ -26,12 +26,4 @@ public class Columns implements Iterable<Selectable> {
         throw new IllegalArgumentException("Alias " + alias + " does not exists.");
     }
 
-    public Selectable get(int index) {
-        return columns.get(index);
-    }
-
-    public int size() {
-        return columns.size();
-    }
-
 }

@@ -21,8 +21,7 @@ public class Select {
     }
     
     public void column(String tableName, String columnName) {
-        Column column = new Column(tableName, columnName);
-        columns.add(column);
+        columns.add(col(tableName, columnName));
     }
 
     public String toSql() {
