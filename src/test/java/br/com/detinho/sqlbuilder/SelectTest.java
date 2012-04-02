@@ -5,10 +5,6 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import br.com.detinho.sqlbuilder.criteria.BetweenCriteria;
-import br.com.detinho.sqlbuilder.criteria.MatchCriteria;
-import br.com.detinho.sqlbuilder.criteria.Or;
-
 public class SelectTest {
 
     @Test
@@ -106,9 +102,9 @@ public class SelectTest {
         Column column2 = col("TABLE", "COLUMN2");
         Column column3 = col("TABLE", "COLUMN3");
 
-        Criteria equals = new MatchCriteria(column1, "=", column2);
-        Criteria between = new BetweenCriteria(column3, integer(1), integer(10));
-        Criteria criteria = new Or(equals, between);        
+        Criteria equals = match(column1, "=", column2);
+        Criteria between = between(column3, integer(1), integer(10));
+        Criteria criteria = or(equals, between);        
         
         Select select = new Select();
         select.column(column1);
