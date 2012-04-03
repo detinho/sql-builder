@@ -10,6 +10,7 @@ import br.com.detinho.sqlbuilder.Criteria;
 import br.com.detinho.sqlbuilder.Scalar;
 import br.com.detinho.sqlbuilder.criteria.And;
 import br.com.detinho.sqlbuilder.criteria.BetweenCriteria;
+import br.com.detinho.sqlbuilder.criteria.InCriteria;
 import br.com.detinho.sqlbuilder.criteria.MatchCriteria;
 import br.com.detinho.sqlbuilder.criteria.Not;
 import br.com.detinho.sqlbuilder.criteria.Or;
@@ -99,5 +100,11 @@ public class CriteriaTest {
     public void notCriteriaWithCriteria() {
         Not notCriteria = new Not(new And(column1, column2));
         assertEquals("(NOT (TABLE.COLUMN AND OTHER_TABLE.COLUMN))", notCriteria.write());
+    }
+    
+    @Test
+    public void inCriteria() {
+        InCriteria criteria = new InCriteria(column2, one, ten, column1);
+        assertEquals("(OTHER_TABLE.COLUMN IN (1, 10, TABLE.COLUMN))", criteria.write());
     }
 }

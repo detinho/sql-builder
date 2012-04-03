@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 import br.com.detinho.sqlbuilder.criteria.And;
 import br.com.detinho.sqlbuilder.criteria.BetweenCriteria;
+import br.com.detinho.sqlbuilder.criteria.InCriteria;
 import br.com.detinho.sqlbuilder.criteria.MatchCriteria;
 import br.com.detinho.sqlbuilder.criteria.Not;
 import br.com.detinho.sqlbuilder.criteria.Or;
@@ -86,5 +87,9 @@ public final class SqlBuilder {
     
     public static Criteria not(Selectable left) {
         return new Not(left);
+    }
+    
+    public static Criteria in(Selectable left, Selectable... values) {
+        return new InCriteria(left, values);
     }
 }
