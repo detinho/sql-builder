@@ -1,8 +1,8 @@
 package br.com.detinho.sqlbuilder;
 
-import java.util.Set;
-
 import static br.com.detinho.sqlbuilder.StringUtils.nullToStr;
+
+import java.util.Set;
 
 public final class Column implements Selectable {
 
@@ -17,9 +17,16 @@ public final class Column implements Selectable {
     public Column(String table, String name, String alias) {
         checkPreConditions(table, name, alias);
         
-        this.table = table == null ? null : new Table(table);
+        this.table = new Table(table);
         this.name = name;
         this.alias = alias;
+    }
+    
+    //TODO: refactor the constructors and validations.
+    public Column(Table table, String name) {
+        this.table = table;
+        this.name = name;
+        this.alias = name;
     }
 
     private void checkPreConditions(String table, String name, String alias) {

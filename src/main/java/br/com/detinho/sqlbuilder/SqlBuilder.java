@@ -31,6 +31,10 @@ public final class SqlBuilder {
         return new Column(table, column);
     }
     
+    public static Column col(Table table, String column) {
+        return new Column(table, column);
+    }
+    
     public static Criteria match(Selectable left, String operator, Selectable right) {
         return new MatchCriteria(left, operator, right);
     }

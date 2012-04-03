@@ -21,7 +21,7 @@ public class ColumnTest {
     
     @Test(expected=IllegalArgumentException.class)
     public void aColumnWithoutTable() {
-        new Column(null, "COLUMN");
+        new Column("", "COLUMN");
     }
     
     @Test
