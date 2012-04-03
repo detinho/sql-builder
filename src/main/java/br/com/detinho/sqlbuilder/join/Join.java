@@ -1,5 +1,6 @@
 package br.com.detinho.sqlbuilder.join;
 
+import static br.com.detinho.sqlbuilder.SqlBuilder.col;
 import static br.com.detinho.sqlbuilder.SqlBuilder.and;
 import static br.com.detinho.sqlbuilder.SqlBuilder.match;
 
@@ -42,6 +43,11 @@ public abstract class Join implements Writable {
             criteria = match;
         else
             criteria = and(criteria, match);
+    }
+    
+    public void addOn(String leftTable, String leftColumn, String operator,
+            String rightTable, String rightColumn) {
+        addOn(col(leftTable, leftColumn), operator, col(rightTable, rightColumn));
     }
 
 }

@@ -138,10 +138,12 @@ public class Select {
         joins.add(join);
     }
 
-    public void leftJoin(String leftTable, String leftColumn, String operator,
+    public Join leftJoin(String leftTable, String leftColumn, String operator,
             String rightTable, String rightColumn) {
         Join join = new LeftJoin(leftTable);
         join.addOn(col(leftTable, leftColumn), operator, col(rightTable, rightColumn));
         joins.add(join);
+        
+        return join;
     }
 }
