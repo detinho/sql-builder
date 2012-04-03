@@ -175,12 +175,15 @@ public class SelectTest {
     public void aJoinWithMultipleConditions() {
         Select select = new Select();
         select.column("OTHER_TABLE", "SOME_COLUMN");
-        select.leftJoin("OTHER_TABLE", "SOME_COLUMN", "=", "TABLE", "COLUMN").
+        select.
+            leftJoin("OTHER_TABLE", "SOME_COLUMN", "=", "TABLE", "COLUMN").
+            addOn("OTHER_TABLE", "OTHER_COLUMN", "=", "TABLE", "OTHER_COLUMN").
             addOn("OTHER_TABLE", "OTHER_COLUMN", "=", "TABLE", "OTHER_COLUMN");
         
         assertEquals("SELECT OTHER_TABLE.SOME_COLUMN FROM TABLE " +
                 "LEFT JOIN OTHER_TABLE ON " +
-                "(OTHER_TABLE.SOME_COLUMN = TABLE.COLUMN AND " +
+                "((OTHER_TABLE.SOME_COLUMN = TABLE.COLUMN AND " +
+                "OTHER_TABLE.OTHER_COLUMN = TABLE.OTHER_COLUMN) AND " +
                 "OTHER_TABLE.OTHER_COLUMN = TABLE.OTHER_COLUMN)", select.toSql());
     }
 

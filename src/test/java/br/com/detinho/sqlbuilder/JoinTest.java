@@ -58,4 +58,18 @@ public class JoinTest {
         assertEquals("LEFT JOIN OTHER_TABLE ON 1 = 1", dummyJoin.write());
     }
 
+    @Test
+    public void manyConditionsOnClauseMoreFluently() {
+        Join join = new InnerJoin("OTHER_TABLE");
+        join.
+            addOn(col("OTHER_TABLE", "COLUMN1"), "=", col("TABLE", "COLUMN1")).
+            addOn(col("OTHER_TABLE", "COLUMN2"), "=", col("TABLE", "COLUMN2")).
+            addOn(col("OTHER_TABLE", "COLUMN2"), "=", col("TABLE", "COLUMN2"));
+
+        assertEquals("INNER JOIN OTHER_TABLE ON " +
+                "((OTHER_TABLE.COLUMN1 = TABLE.COLUMN1 AND " +
+                "OTHER_TABLE.COLUMN2 = TABLE.COLUMN2) AND " +
+                "OTHER_TABLE.COLUMN2 = TABLE.COLUMN2)", join.write());
+    }
+
 }

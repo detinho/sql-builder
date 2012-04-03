@@ -37,17 +37,18 @@ public abstract class Join implements Writable {
         tables.remove(table);
     }
 
-    public void addOn(Selectable left, String operator, Selectable right) {
+    public Join addOn(Selectable left, String operator, Selectable right) {
         Criteria match = match(left, operator, right);
         if (criteria == null)
             criteria = match;
         else
             criteria = and(criteria, match);
+        return this;
     }
     
-    public void addOn(String leftTable, String leftColumn, String operator,
+    public Join addOn(String leftTable, String leftColumn, String operator,
             String rightTable, String rightColumn) {
-        addOn(col(leftTable, leftColumn), operator, col(rightTable, rightColumn));
+        return addOn(col(leftTable, leftColumn), operator, col(rightTable, rightColumn));
     }
 
 }
