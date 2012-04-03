@@ -1,6 +1,6 @@
-package br.com.detinho.sqlbuilder;
+package br.com.detinho.sqlbuilder.join;
 
-import br.com.detinho.sqlbuilder.join.Join;
+import br.com.detinho.sqlbuilder.Table;
 
 public class LeftJoin extends Join {
 

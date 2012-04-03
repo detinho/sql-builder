@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import br.com.detinho.sqlbuilder.join.InnerJoin;
 import br.com.detinho.sqlbuilder.join.Join;
+import br.com.detinho.sqlbuilder.join.LeftJoin;
 
 public class JoinTest {
 

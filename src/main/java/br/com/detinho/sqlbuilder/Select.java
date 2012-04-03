@@ -12,6 +12,7 @@ import br.com.detinho.sqlbuilder.criteria.And;
 import br.com.detinho.sqlbuilder.criteria.MatchCriteria;
 import br.com.detinho.sqlbuilder.join.InnerJoin;
 import br.com.detinho.sqlbuilder.join.Join;
+import br.com.detinho.sqlbuilder.join.LeftJoin;
 
 public class Select {
 
