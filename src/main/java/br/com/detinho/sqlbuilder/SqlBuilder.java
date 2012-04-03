@@ -8,6 +8,7 @@ import br.com.detinho.sqlbuilder.criteria.MatchCriteria;
 import br.com.detinho.sqlbuilder.criteria.Not;
 import br.com.detinho.sqlbuilder.criteria.Or;
 import br.com.detinho.sqlbuilder.scalar.BigDecimalScalar;
+import br.com.detinho.sqlbuilder.scalar.BooleanScalar;
 import br.com.detinho.sqlbuilder.scalar.IntegerScalar;
 import br.com.detinho.sqlbuilder.scalar.StringScalar;
 
@@ -37,6 +38,14 @@ public final class SqlBuilder {
     
     public static Scalar decimal(String value, String alias) {
         return new BigDecimalScalar(new BigDecimal(value), alias);
+    }
+    
+    public static Scalar boll(boolean value) {
+        return new BooleanScalar(value);
+    }
+    
+    public static Scalar boll(boolean value, String alias) {
+        return new BooleanScalar(value, alias);
     }
     
     public static Column col(String table, String column) {
