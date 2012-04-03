@@ -135,5 +135,40 @@ public class SelectTest {
         assertEquals("SELECT TABLE1.COLUMN1 " +
         		"FROM TABLE1, TABLE2 WHERE TABLE1.COLUMN1 = TABLE2.COLUMN2", select.toSql());
     }
+    
+    @Test
+    public void selectWithSimpleJoin() {
+        Select select = new Select();
+        select.column("OTHER_TABLE", "SOME_COLUMN");
+        select.join("OTHER_TABLE", "SOME_COLUMN", "=", "TABLE", "COLUMN");
+        
+        assertEquals("SELECT OTHER_TABLE.SOME_COLUMN FROM TABLE " +
+        		"INNER JOIN OTHER_TABLE ON OTHER_TABLE.SOME_COLUMN = TABLE.COLUMN", select.toSql());
+        
+    }
+    
+    @Test
+    public void selectWithSimpleLeftJoin() {
+        Select select = new Select();
+        select.column("OTHER_TABLE", "SOME_COLUMN");
+        select.leftJoin("OTHER_TABLE", "SOME_COLUMN", "=", "TABLE", "COLUMN");
+        
+        assertEquals("SELECT OTHER_TABLE.SOME_COLUMN FROM TABLE " +
+                "LEFT JOIN OTHER_TABLE ON OTHER_TABLE.SOME_COLUMN = TABLE.COLUMN", select.toSql());
+    }
+    
+    @Test
+    public void manyJoins() {
+        Select select = new Select();
+        select.column("OTHER_TABLE", "SOME_COLUMN");
+        select.column("THIRD_TABLE", "THIRD_COLUMN");
+        
+        select.join("OTHER_TABLE", "SOME_COLUMN", "=", "TABLE", "COLUMN");
+        select.leftJoin("THIRD_TABLE", "THIRD_COLUMN", "=", "TABLE", "COLUMN");
+        
+        assertEquals("SELECT OTHER_TABLE.SOME_COLUMN, THIRD_TABLE.THIRD_COLUMN FROM TABLE " +
+                "INNER JOIN OTHER_TABLE ON OTHER_TABLE.SOME_COLUMN = TABLE.COLUMN " +
+                "LEFT JOIN THIRD_TABLE ON THIRD_TABLE.THIRD_COLUMN = TABLE.COLUMN", select.toSql());
+    }
 
 }
