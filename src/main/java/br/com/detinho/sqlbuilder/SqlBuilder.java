@@ -8,6 +8,7 @@ import br.com.detinho.sqlbuilder.criteria.InCriteria;
 import br.com.detinho.sqlbuilder.criteria.MatchCriteria;
 import br.com.detinho.sqlbuilder.criteria.Not;
 import br.com.detinho.sqlbuilder.criteria.Or;
+import br.com.detinho.sqlbuilder.functions.ConditionalFunction;
 import br.com.detinho.sqlbuilder.scalar.BigDecimalScalar;
 import br.com.detinho.sqlbuilder.scalar.BooleanScalar;
 import br.com.detinho.sqlbuilder.scalar.IntegerScalar;
@@ -91,5 +92,15 @@ public final class SqlBuilder {
     
     public static Criteria in(Selectable left, Selectable... values) {
         return new InCriteria(left, values);
+    }
+    
+    public static ConditionalFunction cond(Criteria criteria, Selectable whenTrue, 
+            Selectable whenFalse) {
+        return cond(criteria, whenTrue, whenFalse, "");
+    }
+    
+    public static ConditionalFunction cond(Criteria criteria, Selectable whenTrue, 
+            Selectable whenFalse, String alias) {
+        return new ConditionalFunction(criteria, whenTrue, whenFalse, alias);
     }
 }
