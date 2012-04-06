@@ -1,9 +1,17 @@
 package br.com.detinho.sqlbuilder;
 
-import static br.com.detinho.sqlbuilder.SqlBuilder.*;
+import static br.com.detinho.sqlbuilder.SqlBuilder.between;
+import static br.com.detinho.sqlbuilder.SqlBuilder.col;
+import static br.com.detinho.sqlbuilder.SqlBuilder.decimal;
+import static br.com.detinho.sqlbuilder.SqlBuilder.integer;
+import static br.com.detinho.sqlbuilder.SqlBuilder.match;
+import static br.com.detinho.sqlbuilder.SqlBuilder.or;
+import static br.com.detinho.sqlbuilder.SqlBuilder.string;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+
+import br.com.detinho.sqlbuilder.OrderBy.OrderType;
 
 public class SelectTest {
 
@@ -185,6 +193,36 @@ public class SelectTest {
                 "((OTHER_TABLE.SOME_COLUMN = TABLE.COLUMN AND " +
                 "OTHER_TABLE.OTHER_COLUMN = TABLE.OTHER_COLUMN) AND " +
                 "OTHER_TABLE.OTHER_COLUMN = TABLE.OTHER_COLUMN)", select.toSql());
+    }
+    
+    @Test
+    public void simpleSelectWithOrderBy() {
+        Select select = new Select();
+        select.column("TABLE", "COLUMN");
+        select.orderBy("COLUMN");
+        
+        assertEquals("SELECT TABLE.COLUMN FROM TABLE ORDER BY COLUMN ASC", select.toSql());
+    }
+    
+    @Test
+    public void orderingByAColumn() {
+        Select select = new Select();
+        select.column("TABLE", "COLUMN");
+        select.orderBy(col("OTHER_TABLE", "COL"));
+        
+        assertEquals("SELECT TABLE.COLUMN FROM TABLE, OTHER_TABLE " +
+        		"ORDER BY OTHER_TABLE.COL ASC", select.toSql());
+    }
+    
+    @Test
+    public void orderingSpecifyingOrderType() {
+        Select select = new Select();
+        select.column("TABLE", "COLUMN");
+        select.orderBy(col("OTHER_TABLE", "COL"), OrderType.ASC);
+        select.orderBy("COLUMN", OrderType.DESC);
+        
+        assertEquals("SELECT TABLE.COLUMN FROM TABLE, OTHER_TABLE " +
+                "ORDER BY OTHER_TABLE.COL ASC, COLUMN DESC", select.toSql());
     }
 
 }

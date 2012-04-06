@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import br.com.detinho.sqlbuilder.OrderBy.OrderType;
 import br.com.detinho.sqlbuilder.criteria.And;
 import br.com.detinho.sqlbuilder.criteria.MatchCriteria;
 import br.com.detinho.sqlbuilder.join.InnerJoin;
@@ -19,6 +20,7 @@ public class Select {
     private Columns columns = new Columns();
     private Set<Table> tables = new LinkedHashSet<Table>();
     private List<Join> joins = new LinkedList<Join>();
+    private List<OrderBy> orders = new LinkedList<OrderBy>();
     
     private Criteria criteria = null;
 
@@ -34,12 +36,14 @@ public class Select {
         collectTablesFromColumns();
         collectTablesFromCriteria();
         collectTablesFromJoins();
+        collectTablesFromOrderBy();
         
         String sql = "SELECT ";
         sql = generateColumnsSql(sql);
         sql = generateTablesSql(sql);
         sql = generateJoinsSql(sql);
         sql = generateWhereSql(sql);
+        sql = generateOrderSql(sql);
         
         return sql;
     }
@@ -57,6 +61,11 @@ public class Select {
     private void collectTablesFromCriteria() {
         if (criteria != null)
             criteria.addTable(tables);
+    }
+    
+    private void collectTablesFromOrderBy() {
+        for (OrderBy order : orders)
+            order.addTable(tables);
     }
     
     private String generateColumnsSql(String sql) {
@@ -91,6 +100,18 @@ public class Select {
     private String generateWhereSql(String sql) {
         if (criteria != null) {
             sql += " WHERE " + criteria.write();
+        }
+        return sql;
+    }
+    
+    private String generateOrderSql(String sql) {
+        String orderSql = "";
+        for (OrderBy order : orders) {
+            orderSql += order.write() + ", ";
+        }
+        
+        if (!orderSql.equals("")) {
+            sql += " ORDER BY " + removeTrailingComma(orderSql);
         }
         return sql;
     }
@@ -146,5 +167,21 @@ public class Select {
         joins.add(join);
         
         return join;
+    }
+
+    public void orderBy(String alias) {
+        orders.add(new OrderBy(alias));
+    }
+
+    public void orderBy(Selectable col) {
+        orders.add(new OrderBy(col));
+    }
+
+    public void orderBy(Selectable col, OrderType type) {
+        orders.add(new OrderBy(col, type));
+    }
+
+    public void orderBy(String alias, OrderType type) {
+        orders.add(new OrderBy(alias, type));
     }
 }
