@@ -3,6 +3,7 @@ package br.com.detinho.sqlbuilder;
 import static br.com.detinho.sqlbuilder.SqlBuilder.col;
 import static br.com.detinho.sqlbuilder.StringUtils.removeTrailingComma;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -79,17 +80,7 @@ public class Select {
     }
 
     private String generateTablesSql(String sql) {
-        String tabelas = "";
-        for (Table t : tables) {
-            tabelas += t.write() + ", ";
-        }
-        
-        if (! "".equals(tabelas)) {
-            tabelas = removeTrailingComma(tabelas);
-            sql += " FROM ";
-            sql += tabelas;
-        }
-        return sql;
+        return sql + writeSql("FROM", tables);
     }
     
     private String generateJoinsSql(String sql) {
@@ -103,31 +94,16 @@ public class Select {
         if (criteria != null) {
             sql += " WHERE " + criteria.write();
         }
+        
         return sql;
     }
     
     private String generateOrderSql(String sql) {
-        String orderSql = "";
-        for (OrderBy order : orders) {
-            orderSql += order.write() + ", ";
-        }
-        
-        if (!orderSql.equals("")) {
-            sql += " ORDER BY " + removeTrailingComma(orderSql);
-        }
-        return sql;
+        return sql + writeSql("ORDER BY", orders);
     }
     
     private String generateGroupSql(String sql) {
-        String groupSql = "";
-        for (GroupBy group : groups) {
-            groupSql += group.write() + ", ";
-        }
-        
-        if (!groupSql.equals("")) {
-            sql += " GROUP BY " + removeTrailingComma(groupSql);
-        }
-        return sql;
+        return sql + writeSql("GROUP BY", groups);
     }
 
     public void where(String columnAlias, String operator, Scalar value) {
@@ -201,5 +177,17 @@ public class Select {
 
     public void groupBy(String alias) {
         groups.add(new GroupBy(alias));
+    }
+
+    private static String writeSql(String clause, Collection<? extends Writable> writables) {
+        String finalSql = "";
+        for (Writable writable : writables) {
+            finalSql += writable.write() + ", ";
+        }
+        
+        if (!finalSql.equals("")) {
+            finalSql = String.format(" %s %s", clause, removeTrailingComma(finalSql));
+        }
+        return finalSql;        
     }
 }
