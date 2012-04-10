@@ -39,11 +39,11 @@ public class Select {
         
         String sql = "SELECT ";
         sql = generateColumnsSql(sql);
-        sql = generateTablesSql(sql);
+        sql += writeSql("FROM", tables);
         sql = generateJoinsSql(sql);
         sql = generateWhereSql(sql);
-        sql = generateOrderSql(sql);
-        sql = generateGroupSql(sql);
+        sql += writeSql("ORDER BY", orders);
+        sql += writeSql("GROUP BY", groups);
         
         return sql;
     }
@@ -70,10 +70,6 @@ public class Select {
         return sql;
     }
 
-    private String generateTablesSql(String sql) {
-        return sql + writeSql("FROM", tables);
-    }
-    
     private String generateJoinsSql(String sql) {
         for (Join join : joins)
             sql += " " + join.write();
@@ -87,14 +83,6 @@ public class Select {
         }
         
         return sql;
-    }
-    
-    private String generateOrderSql(String sql) {
-        return sql + writeSql("ORDER BY", orders);
-    }
-    
-    private String generateGroupSql(String sql) {
-        return sql + writeSql("GROUP BY", groups);
     }
 
     public void where(String columnAlias, String operator, Scalar value) {
