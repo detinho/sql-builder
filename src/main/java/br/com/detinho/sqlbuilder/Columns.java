@@ -3,21 +3,15 @@ package br.com.detinho.sqlbuilder;
 import static br.com.detinho.sqlbuilder.StringUtils.writeSql;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-public class Columns implements Iterable<Selectable> {
+public class Columns {
 
     private List<Selectable> columns = new ArrayList<Selectable>();
     
     public void add(Selectable column) {
         columns.add(column);
-    }
-
-    @Override
-    public Iterator<Selectable> iterator() {
-        return columns.iterator();
     }
 
     public Selectable byAlias(String alias) {

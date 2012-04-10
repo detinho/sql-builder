@@ -6,10 +6,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class ColumnsTest {
@@ -17,14 +15,6 @@ public class ColumnsTest {
     @Test
     public void emptyColumnList() {
         new Columns();
-    }
-    
-    @Test
-    public void addAColumn() {
-        Columns columns = new Columns();
-        columns.add(integer(1));
-        
-        assertEquals(integer(1), columns.iterator().next());
     }
     
     @Test
@@ -37,9 +27,7 @@ public class ColumnsTest {
         columns.add(numberOne);
         columns.add(column);
         
-        Iterator<Selectable> iterator = columns.iterator();
-        assertEquals(numberOne, iterator.next());
-        assertEquals(column, iterator.next());
+        assertEquals("1, TABLE.COLUMN", columns.write());
     }
     
     @Test
