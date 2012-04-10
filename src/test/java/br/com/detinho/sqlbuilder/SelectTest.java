@@ -225,4 +225,16 @@ public class SelectTest {
                 "ORDER BY OTHER_TABLE.COL ASC, COLUMN DESC", select.toSql());
     }
 
+    @Test
+    public void groupBy() throws Exception {
+        Select select = new Select();
+        select.column("TABLE", "COLUMN");
+        select.column("TABLE", "COLUMN2");
+        select.groupBy("COLUMN");
+        select.groupBy("COLUMN2");
+        
+        assertEquals("SELECT TABLE.COLUMN, TABLE.COLUMN2 FROM TABLE GROUP BY COLUMN, COLUMN2", 
+                select.toSql());
+    }
+
 }

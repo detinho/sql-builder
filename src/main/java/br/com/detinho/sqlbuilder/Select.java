@@ -21,6 +21,7 @@ public class Select {
     private Set<Table> tables = new LinkedHashSet<Table>();
     private List<Join> joins = new LinkedList<Join>();
     private List<OrderBy> orders = new LinkedList<OrderBy>();
+    private List<GroupBy> groups = new LinkedList<GroupBy>();
     
     private Criteria criteria = null;
 
@@ -44,6 +45,7 @@ public class Select {
         sql = generateJoinsSql(sql);
         sql = generateWhereSql(sql);
         sql = generateOrderSql(sql);
+        sql = generateGroupSql(sql);
         
         return sql;
     }
@@ -115,6 +117,18 @@ public class Select {
         }
         return sql;
     }
+    
+    private String generateGroupSql(String sql) {
+        String groupSql = "";
+        for (GroupBy group : groups) {
+            groupSql += group.write() + ", ";
+        }
+        
+        if (!groupSql.equals("")) {
+            sql += " GROUP BY " + removeTrailingComma(groupSql);
+        }
+        return sql;
+    }
 
     public void where(String columnAlias, String operator, Scalar value) {
         Selectable selectable = columns.byAlias(columnAlias);
@@ -183,5 +197,9 @@ public class Select {
 
     public void orderBy(String alias, OrderType type) {
         orders.add(new OrderBy(alias, type));
+    }
+
+    public void groupBy(String alias) {
+        groups.add(new GroupBy(alias));
     }
 }
