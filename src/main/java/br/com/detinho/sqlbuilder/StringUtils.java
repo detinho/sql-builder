@@ -1,5 +1,7 @@
 package br.com.detinho.sqlbuilder;
 
+import java.util.Collection;
+
 public final class StringUtils {
 
     private StringUtils() {}
@@ -21,5 +23,25 @@ public final class StringUtils {
         }
         return theAlias;
     }
+    
+    public static String writeSql(Collection<? extends Writable> writables) {
+        return writeSql("", writables);
+    }
+    
+    public static String writeSql(String clause, Collection<? extends Writable> writables) {
+        String finalSql = "";
+        for (Writable writable : writables) {
+            finalSql += writable.write() + ", ";
+        }
+        
+        if (!finalSql.equals("")) {
+            if ("".equals(clause))
+                finalSql = removeTrailingComma(finalSql);
+            else
+                finalSql = String.format(" %s %s", clause, removeTrailingComma(finalSql));
+        }
+        return finalSql;        
+    }
+
     
 }

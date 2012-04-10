@@ -1,9 +1,8 @@
 package br.com.detinho.sqlbuilder;
 
 import static br.com.detinho.sqlbuilder.SqlBuilder.col;
-import static br.com.detinho.sqlbuilder.StringUtils.removeTrailingComma;
+import static br.com.detinho.sqlbuilder.StringUtils.writeSql;
 
-import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -38,7 +37,7 @@ public class Select {
         collectTables();
         
         String sql = "SELECT ";
-        sql = generateColumnsSql(sql);
+        sql += columns.write();
         sql += writeSql("FROM", tables);
         sql = generateJoinsSql(sql);
         sql = generateWhereSql(sql);
@@ -49,9 +48,8 @@ public class Select {
     }
 
     private void collectTables() {
-        for (Selectable sel : columns)
-            sel.addTable(tables);
-
+        columns.addTable(tables);
+        
         for (Join join : joins)
             join.addTable(tables);
 
@@ -62,14 +60,6 @@ public class Select {
             order.addTable(tables);
     }
     
-    private String generateColumnsSql(String sql) {
-        for (Selectable value : columns) {
-            sql += value.write() + ", ";
-        }
-        sql = removeTrailingComma(sql);
-        return sql;
-    }
-
     private String generateJoinsSql(String sql) {
         for (Join join : joins)
             sql += " " + join.write();
@@ -158,15 +148,4 @@ public class Select {
         groups.add(new GroupBy(alias));
     }
 
-    private static String writeSql(String clause, Collection<? extends Writable> writables) {
-        String finalSql = "";
-        for (Writable writable : writables) {
-            finalSql += writable.write() + ", ";
-        }
-        
-        if (!finalSql.equals("")) {
-            finalSql = String.format(" %s %s", clause, removeTrailingComma(finalSql));
-        }
-        return finalSql;        
-    }
 }

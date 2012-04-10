@@ -1,16 +1,16 @@
 package br.com.detinho.sqlbuilder;
 
-import static org.junit.Assert.*;
-import static br.com.detinho.sqlbuilder.SqlBuilder.*;
+import static br.com.detinho.sqlbuilder.SqlBuilder.col;
+import static br.com.detinho.sqlbuilder.SqlBuilder.integer;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
 
+import org.junit.Ignore;
 import org.junit.Test;
-
-import br.com.detinho.sqlbuilder.Column;
-import br.com.detinho.sqlbuilder.Columns;
-import br.com.detinho.sqlbuilder.Scalar;
-import br.com.detinho.sqlbuilder.Selectable;
 
 public class ColumnsTest {
 
@@ -60,4 +60,27 @@ public class ColumnsTest {
         Columns columns = new Columns();
         columns.byAlias("COLUMN");
     }
+
+    @Test
+    public void writeAllColumns() {
+        Columns columns = new Columns();
+        columns.add(integer(1));
+        columns.add(integer(2));
+        
+        assertEquals("1, 2", columns.write());
+    }
+    
+    @Test
+    public void addTables() {
+        Set<Table> tables = new HashSet<Table>();
+        Columns columns = new Columns();
+        columns.add(col("TABLE1", "COL"));
+        columns.add(col("TABLE2", "COL"));
+        
+        columns.addTable(tables);
+        
+        assertTrue(tables.contains(new Table("TABLE1")));
+        assertTrue(tables.contains(new Table("TABLE2")));
+    }
+    
 }
