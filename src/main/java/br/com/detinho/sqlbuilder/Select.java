@@ -35,10 +35,7 @@ public class Select {
     }
 
     public String toSql() {
-        collectTablesFromColumns();
-        collectTablesFromCriteria();
-        collectTablesFromJoins();
-        collectTablesFromOrderBy();
+        collectTables();
         
         String sql = "SELECT ";
         sql = generateColumnsSql(sql);
@@ -51,22 +48,16 @@ public class Select {
         return sql;
     }
 
-    private void collectTablesFromJoins() {
-        for (Join join : joins)
-            join.addTable(tables);
-    }
-
-    private void collectTablesFromColumns() {
+    private void collectTables() {
         for (Selectable sel : columns)
             sel.addTable(tables);
-    }
-    
-    private void collectTablesFromCriteria() {
+
+        for (Join join : joins)
+            join.addTable(tables);
+
         if (criteria != null)
             criteria.addTable(tables);
-    }
-    
-    private void collectTablesFromOrderBy() {
+
         for (OrderBy order : orders)
             order.addTable(tables);
     }
