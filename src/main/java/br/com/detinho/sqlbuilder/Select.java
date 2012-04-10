@@ -148,4 +148,8 @@ public class Select {
         groups.add(new GroupBy(alias));
     }
 
+    public void table(String tableName) {
+        tables.add(new Table(tableName));
+    }
+
 }

@@ -71,4 +71,10 @@ public class ColumnsTest {
         assertTrue(tables.contains(new Table("TABLE2")));
     }
     
+    @Test
+    public void whenNoColumnsAreSpecifiedDefaultsToAll() {
+        Columns columns = new Columns();
+        assertEquals("*", columns.write());
+    }
+    
 }

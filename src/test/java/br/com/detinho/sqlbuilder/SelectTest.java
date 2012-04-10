@@ -236,5 +236,13 @@ public class SelectTest {
         assertEquals("SELECT TABLE.COLUMN, TABLE.COLUMN2 FROM TABLE GROUP BY COLUMN, COLUMN2", 
                 select.toSql());
     }
+    
+    @Test
+    public void addStandaloneTable() {
+        Select select = new Select();
+        select.table("TABLE");
+        
+        assertEquals("SELECT * FROM TABLE", select.toSql());
+    }
 
 }

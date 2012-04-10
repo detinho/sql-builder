@@ -24,6 +24,8 @@ public class Columns {
     }
 
     public String write() {
+        if (columns.isEmpty())
+            return "*";
         return writeSql("", columns);
     }
     
