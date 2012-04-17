@@ -62,5 +62,25 @@ public class ExpressionsTest {
         expr.div(num2);
         assertEquals("1/2", expr.write());
     }
+    
+    @Test
+    public void canTransformAnExpressionIntoASelectable() {
+        ExpressionBuilder expr = new ExpressionBuilder(num1);
+        expr.div(num2);
+        
+        Selectable selectable = expr.selectable("ALIAS");
+        
+        assertEquals("(1/2) AS ALIAS", selectable.write());
+        assertEquals("ALIAS", selectable.alias());
+    }
+    
+    @Test
+    public void theAliasCanBeOptional() {
+        ExpressionBuilder expr = new ExpressionBuilder(num1);
+        expr.div(num2);
+        
+        Selectable selectable = expr.selectable();
 
+        assertEquals("1/2", selectable.write());
+    }
 }
