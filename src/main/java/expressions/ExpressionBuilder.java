@@ -7,6 +7,10 @@ public class ExpressionBuilder implements Writable {
 
     private Expression expr = new EmptyExpression();
 
+    public ExpressionBuilder(Expression operand) {
+        this.expr = operand;
+    }
+
     public void add(Expression operand) {
         this.expr = new ArithmeticExpression(expr, "+", operand);
     }
@@ -18,6 +22,10 @@ public class ExpressionBuilder implements Writable {
     
     public void sub(Expression operand) {
         this.expr = new ArithmeticExpression(expr, "-", operand);
+    }
+
+    public void times(Expression operand) {
+        this.expr = new ArithmeticExpression(expr, "*", operand);
     }
     
 }

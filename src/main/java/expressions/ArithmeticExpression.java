@@ -15,8 +15,9 @@ public class ArithmeticExpression implements Expression {
     
     @Override
     public String expression() {
-        if (operand1 instanceof EmptyExpression)
+        if (operand1 instanceof EmptyExpression) {
             return operand2.expression();
+        }
         return operand1.expression() + operator + operand2.expression();
     }
 }
