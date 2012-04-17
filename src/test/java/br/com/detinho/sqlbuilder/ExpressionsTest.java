@@ -54,5 +54,13 @@ public class ExpressionsTest {
         expr.add(num2);
         assertEquals("1+2", expr.write());        
     }
+    
+    @Test
+    public void division() {
+        ExpressionBuilder expr = new ExpressionBuilder(num1);
+        
+        expr.div(num2);
+        assertEquals("1/2", expr.write());
+    }
 
 }

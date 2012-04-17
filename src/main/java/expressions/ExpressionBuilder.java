@@ -27,5 +27,9 @@ public class ExpressionBuilder implements Writable {
     public void times(Expression operand) {
         this.expr = new ArithmeticExpression(expr, "*", operand);
     }
+
+    public void div(Expression operand) {
+        this.expr = new ArithmeticExpression(expr, "/", operand);
+    }
     
 }
