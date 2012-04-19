@@ -1,12 +1,11 @@
 package br.com.detinho.sqlbuilder;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static br.com.detinho.sqlbuilder.SqlBuilder.*;
+
 import org.junit.Test;
 
 import br.com.detinho.sqlbuilder.expressions.ExpressionBuilder;
-
-
-import static br.com.detinho.sqlbuilder.SqlBuilder.*;
 
 public class ExpressionsTest {
 
