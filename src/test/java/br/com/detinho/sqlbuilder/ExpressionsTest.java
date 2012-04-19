@@ -3,7 +3,8 @@ package br.com.detinho.sqlbuilder;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
-import expressions.ExpressionBuilder;
+import br.com.detinho.sqlbuilder.expressions.ExpressionBuilder;
+
 
 import static br.com.detinho.sqlbuilder.SqlBuilder.*;
 
