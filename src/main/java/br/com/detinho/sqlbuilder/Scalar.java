@@ -11,12 +11,13 @@ public abstract class Scalar implements Selectable, Expression {
     @Override
     public String write() {
         String finalValue = scalarValue();
-        if (! "".equals(alias()))
-            finalValue += " AS " + alias();
+        if (! "".equals(scalarAlias()))
+            finalValue += " AS " + scalarAlias();
         return finalValue;
     }
 
     public abstract String scalarValue();
+    public abstract String scalarAlias();
     
     @Override
     public String expression() {

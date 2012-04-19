@@ -72,7 +72,6 @@ public class ExpressionsTest {
         Selectable selectable = expr.selectable("ALIAS");
         
         assertEquals("(1/2) AS ALIAS", selectable.write());
-        assertEquals("ALIAS", selectable.alias());
     }
     
     @Test

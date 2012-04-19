@@ -22,7 +22,6 @@ public final class Column implements Selectable {
         this.alias = alias;
     }
     
-    //TODO: refactor the constructors and validations.
     public Column(Table table, String name) {
         this.table = table;
         this.name = name;
@@ -53,14 +52,6 @@ public final class Column implements Selectable {
     @Override
     public void addTable(Set<Table> tables) {
         tables.add(table);
-    }
-    
-    /*
-     * @see br.com.detinho.Selectable#alias()
-     */
-    @Override
-    public String alias() {
-        return alias;
     }
     
     @Override

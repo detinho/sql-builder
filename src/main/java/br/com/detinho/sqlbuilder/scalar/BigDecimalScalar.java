@@ -24,7 +24,7 @@ public final class BigDecimalScalar extends Scalar {
     }
     
     @Override
-    public String alias() {
+    public String scalarAlias() {
         return alias;
     }
 

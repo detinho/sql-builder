@@ -29,25 +29,6 @@ public class ColumnsTest {
         
         assertEquals("1, TABLE.COLUMN", columns.write());
     }
-    
-    @Test
-    public void getColumnByAlias() {
-        Columns columns = new Columns();
-    
-        Scalar numberOne = integer(1);
-        Column column = new Column("TABLE", "COLUMN");
-        
-        columns.add(numberOne);
-        columns.add(column);
-        
-        assertEquals(column, columns.byAlias("COLUMN"));
-    }
-    
-    @Test(expected=IllegalArgumentException.class)
-    public void whenColumnDoesNotExists() {
-        Columns columns = new Columns();
-        columns.byAlias("COLUMN");
-    }
 
     @Test
     public void writeAllColumns() {

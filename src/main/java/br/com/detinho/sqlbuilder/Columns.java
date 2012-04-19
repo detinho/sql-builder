@@ -14,15 +14,6 @@ public class Columns {
         columns.add(column);
     }
 
-    public Selectable byAlias(String alias) {
-        for (Selectable col : columns) {
-            if (col.alias().equals(alias))
-                return col;
-        }
-        
-        throw new IllegalArgumentException("Alias " + alias + " does not exists.");
-    }
-
     public String write() {
         if (columns.isEmpty())
             return "*";
@@ -55,11 +46,6 @@ public class Columns {
 
         @Override
         public void addTable(Set<Table> tables) {
-        }
-
-        @Override
-        public String alias() {
-            return alias;
         }
     }
 

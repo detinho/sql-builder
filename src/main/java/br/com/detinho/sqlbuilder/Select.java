@@ -75,22 +75,18 @@ public class Select {
         return sql;
     }
 
-    public void where(String columnAlias, String operator, Scalar value) {
-        Selectable selectable = columns.byAlias(columnAlias);
-        addNewMatchCriteria(selectable, operator, value);
-    }
-
-    public void where(String leftColumn, String operator, String rightColumn) {
-        Selectable left = columns.byAlias(leftColumn);
-        Selectable right = columns.byAlias(rightColumn);
-        
-        addNewMatchCriteria(left, operator, right);
+    public void where(String table, String column, String operator, Scalar value) {
+        addNewMatchCriteria(col(table, column), operator, value);
     }
     
+    public void where(String leftTable, String leftColumn, String operator,
+            String rightTable, String rightColumn) {
+        addNewMatchCriteria(col(leftTable, leftColumn), operator, col(rightTable, rightColumn));
+    }
+
     private void addNewMatchCriteria(Selectable selectable, String operator,
             Selectable value) {
         MatchCriteria newCriteria = new MatchCriteria(selectable, operator, value);
-        
         addNewCriteria(newCriteria);
     }
 
@@ -103,13 +99,6 @@ public class Select {
 
     public void where(Criteria criteria) {
         addNewCriteria(criteria);
-    }
-
-    public void where(String leftTable, String leftColumn, String operator,
-            String rightTable, String rightColumn) {
-        Criteria newCriteria = 
-                new MatchCriteria(col(leftTable, leftColumn), operator, col(rightTable, rightColumn));
-        addNewCriteria(newCriteria);
     }
 
     public void join(String leftTable, String leftColumn, String operator,

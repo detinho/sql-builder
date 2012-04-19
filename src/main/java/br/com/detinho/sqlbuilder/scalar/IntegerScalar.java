@@ -22,7 +22,7 @@ public final class IntegerScalar extends Scalar {
     }
     
     @Override
-    public String alias() {
+    public String scalarAlias() {
         return alias;
     }
 

@@ -61,7 +61,7 @@ public class SelectTest {
     public void simpleWhereClause() {
         Select select = new Select();
         select.column("TABLENAME", "COLUMN_NAME");
-        select.where("COLUMN_NAME", "=", string("Marcos"));
+        select.where("TABLENAME", "COLUMN_NAME", "=", string("Marcos"));
         
         assertEquals("SELECT TABLENAME.COLUMN_NAME FROM TABLENAME WHERE TABLENAME.COLUMN_NAME = \"Marcos\"", 
                 select.toSql());
@@ -72,7 +72,7 @@ public class SelectTest {
         Select select = new Select();
         select.column("TABLENAME", "COLUMN1");
         select.column("TABLENAME", "COLUMN2");
-        select.where("COLUMN1", "=", "COLUMN2");
+        select.where("TABLENAME", "COLUMN1", "=", "TABLENAME", "COLUMN2");
         
         assertEquals("SELECT TABLENAME.COLUMN1, TABLENAME.COLUMN2 FROM TABLENAME " +
         		"WHERE TABLENAME.COLUMN1 = TABLENAME.COLUMN2", 
@@ -84,8 +84,8 @@ public class SelectTest {
         Select select = new Select();
         select.column("TABLE", "COLUMN1");
         select.column("TABLE", "COLUMN2");
-        select.where("COLUMN1", ">", integer(2));
-        select.where("COLUMN2", "=", integer(0));
+        select.where("TABLE", "COLUMN1", ">", integer(2));
+        select.where("TABLE", "COLUMN2", "=", integer(0));
         
         assertEquals("SELECT TABLE.COLUMN1, TABLE.COLUMN2 FROM TABLE " +
                 "WHERE (TABLE.COLUMN1 > 2 AND TABLE.COLUMN2 = 0)", select.toSql());
@@ -97,8 +97,8 @@ public class SelectTest {
         select.column("TABLE", "COLUMN1");
         select.column("TABLE", "COLUMN2");
         select.column("TABLE", "COLUMN3");
-        select.where("COLUMN1", ">", "COLUMN2");
-        select.where("COLUMN2", "=", "COLUMN3");
+        select.where("TABLE", "COLUMN1", ">", "TABLE", "COLUMN2");
+        select.where("TABLE", "COLUMN2", "=", "TABLE", "COLUMN3");
         
         assertEquals("SELECT TABLE.COLUMN1, TABLE.COLUMN2, TABLE.COLUMN3 FROM TABLE " +
                 "WHERE (TABLE.COLUMN1 > TABLE.COLUMN2 AND TABLE.COLUMN2 = TABLE.COLUMN3)", select.toSql());

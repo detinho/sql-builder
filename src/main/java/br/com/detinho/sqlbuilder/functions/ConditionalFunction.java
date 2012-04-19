@@ -37,10 +37,4 @@ public class ConditionalFunction implements Selectable {
         whenFalse.addTable(tables);
         whenTrue.addTable(tables);
     }
-
-    @Override
-    public String alias() {
-        return alias;
-    }
-
 }

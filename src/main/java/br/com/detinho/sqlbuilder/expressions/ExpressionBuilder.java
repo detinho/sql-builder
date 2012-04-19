@@ -63,11 +63,6 @@ public class ExpressionBuilder implements Writable {
         }
         
         @Override
-        public String alias() {
-            return alias;
-        }
-        
-        @Override
         public void addTable(Set<Table> tables) {
             
         }
