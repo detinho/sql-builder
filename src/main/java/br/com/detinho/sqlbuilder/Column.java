@@ -40,7 +40,7 @@ public final class Column implements Selectable {
     public String write() {
         if (table == null)
             return name;
-        String ret = table.write() + "." + name;
+        String ret = table.alias() + "." + name;
         if (!name.equals(alias))
             ret += " AS \"" + alias + "\"";
         return ret;

@@ -255,5 +255,16 @@ public class SelectTest {
         
         assertEquals("SELECT (SELECT \"VALUE\" AS ALIAS)", select.toSql());
     }
+    
+    @Test
+    public void selectTableWithAlias() {
+        Table t1 = new Table("TABLE", "T1");
+        Table t2 = new Table("TABLE", "T2");
+        Select select = new Select();
+        select.column(col(t1, "COL"));
+        select.column(col(t2, "COL"));
+        
+        assertEquals("SELECT T1.COL, T2.COL FROM TABLE AS T1, TABLE AS T2", select.toSql());
+    }
 
 }
