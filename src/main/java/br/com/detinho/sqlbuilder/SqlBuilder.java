@@ -42,11 +42,11 @@ public final class SqlBuilder {
         return new BigDecimalScalar(new BigDecimal(value), alias);
     }
     
-    public static Scalar boll(boolean value) {
+    public static Scalar bool(boolean value) {
         return new BooleanScalar(value);
     }
     
-    public static Scalar boll(boolean value, String alias) {
+    public static Scalar bool(boolean value, String alias) {
         return new BooleanScalar(value, alias);
     }
     
