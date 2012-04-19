@@ -244,5 +244,16 @@ public class SelectTest {
         
         assertEquals("SELECT * FROM TABLE", select.toSql());
     }
+    
+    @Test
+    public void simpleSubSelect() {
+        Select subSelect = new Select();
+        subSelect.column(string("VALUE"));
+        
+        Select select = new Select();
+        select.column(subSelect, "ALIAS");
+        
+        assertEquals("SELECT (SELECT \"VALUE\" AS ALIAS)", select.toSql());
+    }
 
 }

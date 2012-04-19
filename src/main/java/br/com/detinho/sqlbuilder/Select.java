@@ -152,4 +152,7 @@ public class Select {
         tables.add(new Table(tableName));
     }
 
+    public void column(Select subSelect, String alias) {
+        columns.add(subSelect, alias);
+    }
 }

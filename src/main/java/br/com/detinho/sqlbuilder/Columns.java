@@ -35,4 +35,32 @@ public class Columns {
         }
     }
 
+    public void add(Select subSelect, String alias) {
+        columns.add(new SelectableWrapper(subSelect, alias));
+    }
+    
+    private static final class SelectableWrapper implements Selectable {
+        private final Select subSelect;
+        private final String alias;
+
+        public SelectableWrapper(Select subSelect, String alias) {
+            this.subSelect = subSelect;
+            this.alias = alias;
+        }
+
+        @Override
+        public String write() {
+            return String.format("(%s AS %s)", subSelect.toSql(), alias); 
+        }
+
+        @Override
+        public void addTable(Set<Table> tables) {
+        }
+
+        @Override
+        public String alias() {
+            return alias;
+        }
+    }
+
 }
