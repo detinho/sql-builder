@@ -5,15 +5,9 @@ import br.com.detinho.sqlbuilder.Scalar;
 public final class StringScalar extends Scalar {
 
     private final String value;
-    private final String alias;
 
     public StringScalar(String value) {
-        this(value, "");
-    }
-    
-    public StringScalar(String value, String alias) {
         this.value = value;
-        this.alias = alias;        
     }
     
     @Override
@@ -21,14 +15,8 @@ public final class StringScalar extends Scalar {
         return encodeString(value);
     }
     
-    @Override
-    public String scalarAlias() {
-        return alias;
-    }
-    
     private String encodeString(String value) {
         //Need to improve this...
         return "\"" + value + "\"";
     }
-
 }

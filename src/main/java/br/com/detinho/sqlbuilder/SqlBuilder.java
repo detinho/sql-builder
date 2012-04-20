@@ -22,32 +22,16 @@ public final class SqlBuilder {
         return new StringScalar(value);
     }
     
-    public static Scalar string(String value, String alias) {
-        return new StringScalar(value, alias);
-    }
-    
     public static Scalar integer(int value) {
         return new IntegerScalar(value);
-    }
-    
-    public static Scalar integer(int value, String alias) {
-        return new IntegerScalar(value, alias);
     }
     
     public static Scalar decimal(String value) {
         return new BigDecimalScalar(new BigDecimal(value));
     }
     
-    public static Scalar decimal(String value, String alias) {
-        return new BigDecimalScalar(new BigDecimal(value), alias);
-    }
-    
     public static Scalar bool(boolean value) {
         return new BooleanScalar(value);
-    }
-    
-    public static Scalar bool(boolean value, String alias) {
-        return new BooleanScalar(value, alias);
     }
     
     public static Column col(String table, String column) {

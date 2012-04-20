@@ -10,14 +10,10 @@ public abstract class Scalar implements Selectable, Expression {
     
     @Override
     public String write() {
-        String finalValue = scalarValue();
-        if (! "".equals(scalarAlias()))
-            finalValue += " AS " + scalarAlias();
-        return finalValue;
+        return scalarValue();
     }
 
     public abstract String scalarValue();
-    public abstract String scalarAlias();
     
     @Override
     public String expression() {
