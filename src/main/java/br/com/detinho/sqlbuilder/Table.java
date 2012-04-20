@@ -1,19 +1,25 @@
 package br.com.detinho.sqlbuilder;
 
+import static br.com.detinho.sqlbuilder.StringUtils.nullToStr;
+
 public final class Table implements Writable {
 
     private final String name;
     private final String alias;
 
     public Table(String name) {
-        this.name = name;
-        this.alias = name;
+        this(name, name);
     }
     
     public Table(String name, String alias) {
+        checkPreConditions(name);
         this.name = name;
         this.alias = alias;
-        
+    }
+    
+    public void checkPreConditions(String tableName) {
+        if (nullToStr(tableName).equals(""))
+            throw new IllegalArgumentException("Table name should be not be empty.");
     }
     
     @Override

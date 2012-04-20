@@ -8,29 +8,20 @@ public final class Column implements Selectable {
 
     private final Table table;
     private final String name;
-    private final String alias;
     
     public Column(String table, String name) {
-        this(table, name, name);
-    }
-
-    public Column(String table, String name, String alias) {
-        checkPreConditions(table, name, alias);
-        
-        this.table = new Table(table);
-        this.name = name;
-        this.alias = alias;
+        this(new Table(table), name);
     }
     
     public Column(Table table, String name) {
+        checkPreConditions(name);
         this.table = table;
         this.name = name;
-        this.alias = name;
     }
 
-    private void checkPreConditions(String table, String name, String alias) {
-        if (nullToStr(table).equals("") || nullToStr(name).equals("") || nullToStr(alias).equals(""))
-            throw new IllegalArgumentException("All parameters (table, column name and alias) have to be informed.");
+    private void checkPreConditions(String name) {
+        if (nullToStr(name).equals(""))
+            throw new IllegalArgumentException("All parameters (column name and alias) have to be informed.");
     }
 
     /* 
@@ -40,10 +31,8 @@ public final class Column implements Selectable {
     public String write() {
         if (table == null)
             return name;
-        String ret = table.alias() + "." + name;
-        if (!name.equals(alias))
-            ret += " AS \"" + alias + "\"";
-        return ret;
+        
+        return table.alias() + "." + name;
     }
     
     /*
@@ -61,18 +50,12 @@ public final class Column implements Selectable {
         
         Column otherCol = (Column)other;
         return table.equals(otherCol.table) &&
-                name.equals(otherCol.name) &&
-                alias.equals(otherCol.alias);
+                name.equals(otherCol.name);
     }
     
     @Override
     public int hashCode() {
         return 37 + table.hashCode() + 
-                name.hashCode() + 77 + 
-                alias.hashCode();
-    }
-
-    public boolean sameAlias(String alias) {
-        return this.alias.equals(alias);
+                name.hashCode();
     }
 }

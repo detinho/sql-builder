@@ -80,11 +80,6 @@ public final class SqlBuilder {
     
     public static ConditionalFunction cond(Criteria criteria, Selectable whenTrue, 
             Selectable whenFalse) {
-        return cond(criteria, whenTrue, whenFalse, "");
-    }
-    
-    public static ConditionalFunction cond(Criteria criteria, Selectable whenTrue, 
-            Selectable whenFalse, String alias) {
-        return new ConditionalFunction(criteria, whenTrue, whenFalse, alias);
+        return new ConditionalFunction(criteria, whenTrue, whenFalse);
     }
 }

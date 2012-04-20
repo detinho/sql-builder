@@ -20,9 +20,9 @@ public class ConditionalFunctionTest {
     public void conditionalFuncion() {
         Criteria criteria = match(integer(1), "=", integer(1));
         ConditionalFunction function = 
-                new ConditionalFunction(criteria, string("IS TRUE"), string("IS FALSE"), "ALIAS");
+                new ConditionalFunction(criteria, string("IS TRUE"), string("IS FALSE"));
         
-        assertEquals("IF(1 = 1, \"IS TRUE\", \"IS FALSE\") AS ALIAS", function.write());
+        assertEquals("IF(1 = 1, \"IS TRUE\", \"IS FALSE\")", function.write());
     }
     
     @Test
@@ -30,7 +30,7 @@ public class ConditionalFunctionTest {
         Set<Table> tables = new HashSet<Table>();
         Criteria criteria = match(col("TABLE", "COL"), "=", integer(1));
         ConditionalFunction function = 
-                new ConditionalFunction(criteria, col("TABLE2", "COL"), col("TABLE3", "COL"), "ALIAS");
+                new ConditionalFunction(criteria, col("TABLE2", "COL"), col("TABLE3", "COL"));
         
         function.addTable(tables);
         assertTrue("Should contain table.", tables.contains(new Table("TABLE")));
@@ -42,7 +42,7 @@ public class ConditionalFunctionTest {
     public void conditionalFuncionWithoutAlias() {
         Criteria criteria = match(integer(1), "=", integer(1));
         ConditionalFunction function = 
-                new ConditionalFunction(criteria, string("IS TRUE"), string("IS FALSE"), "");
+                new ConditionalFunction(criteria, string("IS TRUE"), string("IS FALSE"));
         
         assertEquals("IF(1 = 1, \"IS TRUE\", \"IS FALSE\")", function.write());
     }
