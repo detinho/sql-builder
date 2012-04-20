@@ -32,7 +32,7 @@ public class Select {
     public void column(String tableName, String columnName) {
         columns.add(col(tableName, columnName));
     }
-
+    
     public String toSql() {
         collectTables();
         
@@ -143,5 +143,13 @@ public class Select {
 
     public void column(Select subSelect, String alias) {
         columns.add(subSelect, alias);
+    }
+
+    public void column(Selectable selectable, String alias) {
+        columns.add(selectable, alias);
+    }
+
+    public void column(String table, String column, String alias) {
+        columns.add(col(table, column), alias);
     }
 }

@@ -266,5 +266,14 @@ public class SelectTest {
         
         assertEquals("SELECT T1.COL, T2.COL FROM TABLE AS T1, TABLE AS T2", select.toSql());
     }
+    
+    @Test
+    public void columnWithAlias() throws Exception {
+        Select select = new Select();
+        select.column(integer(1), "NUMBER");
+        select.column("TABLE", "COLUMN", "MY_COLUMN");
+        
+        assertEquals("SELECT 1 AS NUMBER, TABLE.COLUMN AS MY_COLUMN FROM TABLE", select.toSql());
+    }
 
 }

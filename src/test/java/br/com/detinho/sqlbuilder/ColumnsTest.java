@@ -58,4 +58,12 @@ public class ColumnsTest {
         assertEquals("*", columns.write());
     }
     
+    @Test
+    public void addAColumnWithAlias() {
+        Columns columns = new Columns();
+        columns.add(col("TABLE1", "COL"), "ALIAS");
+        
+        assertEquals("TABLE1.COL AS ALIAS", columns.write());
+    }
+    
 }

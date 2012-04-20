@@ -16,13 +16,13 @@ public final class StringUtils {
         return string;
     }
     
-//    public static String appendAlias(String theAlias) {
-//        theAlias = StringUtils.nullToStr(theAlias);
-//        if (!theAlias.equals("")) {
-//            return " AS " + theAlias;
-//        }
-//        return theAlias;
-//    }
+    public static String appendAlias(String theAlias) {
+        theAlias = StringUtils.nullToStr(theAlias);
+        if (!theAlias.equals("")) {
+            return " AS " + theAlias;
+        }
+        return theAlias;
+    }
     
     public static String writeSql(Collection<? extends Writable> writables) {
         return writeSql("", writables);

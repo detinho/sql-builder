@@ -1,6 +1,6 @@
 package br.com.detinho.sqlbuilder;
 
-import static br.com.detinho.sqlbuilder.StringUtils.writeSql;
+import static br.com.detinho.sqlbuilder.StringUtils.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +12,10 @@ public class Columns {
     
     public void add(Selectable column) {
         columns.add(column);
+    }
+    
+    public void add(Selectable col, String alias) {
+        add(new AliasedSelectable(col, alias));
     }
 
     public String write() {
