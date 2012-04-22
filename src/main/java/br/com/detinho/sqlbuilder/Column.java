@@ -58,4 +58,9 @@ public final class Column implements Selectable {
         return 37 + table.hashCode() + 
                 name.hashCode();
     }
+    
+    @Override
+    public String toString() {
+        return String.format("[%s: %s]", table.write(), name);
+    }
 }

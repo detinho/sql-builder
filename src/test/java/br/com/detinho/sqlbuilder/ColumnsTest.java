@@ -65,5 +65,4 @@ public class ColumnsTest {
         
         assertEquals("TABLE1.COL AS ALIAS", columns.write());
     }
-    
 }

@@ -20,7 +20,7 @@ public class SelectTest {
         Select select = new Select();
         select.column(integer(1));
         
-        assertEquals("SELECT 1", select.toSql());
+        assertEquals("SELECT 1", select.write());
     }
     
     @Test
@@ -29,7 +29,7 @@ public class SelectTest {
         select.column(integer(1));
         select.column(integer(2));
         
-        assertEquals("SELECT 1, 2", select.toSql());
+        assertEquals("SELECT 1, 2", select.write());
     }
     
     @Test
@@ -38,7 +38,7 @@ public class SelectTest {
         select.column(integer(1));
         select.column(decimal("2.001"));
         
-        assertEquals("SELECT 1, 2.001", select.toSql());
+        assertEquals("SELECT 1, 2.001", select.write());
     }
     
     @Test
@@ -46,7 +46,7 @@ public class SelectTest {
         Select select = new Select();
         select.column(string("value"));
         
-        assertEquals("SELECT \"value\"", select.toSql());
+        assertEquals("SELECT \"value\"", select.write());
     }
     
     @Test
@@ -54,7 +54,7 @@ public class SelectTest {
         Select select = new Select();
         select.column("TABLENAME", "COLUMN_NAME");
         
-        assertEquals("SELECT TABLENAME.COLUMN_NAME FROM TABLENAME", select.toSql());
+        assertEquals("SELECT TABLENAME.COLUMN_NAME FROM TABLENAME", select.write());
     }
     
     @Test
@@ -64,7 +64,7 @@ public class SelectTest {
         select.where("TABLENAME", "COLUMN_NAME", "=", string("Marcos"));
         
         assertEquals("SELECT TABLENAME.COLUMN_NAME FROM TABLENAME WHERE TABLENAME.COLUMN_NAME = \"Marcos\"", 
-                select.toSql());
+                select.write());
     }
     
     @Test
@@ -76,7 +76,7 @@ public class SelectTest {
         
         assertEquals("SELECT TABLENAME.COLUMN1, TABLENAME.COLUMN2 FROM TABLENAME " +
         		"WHERE TABLENAME.COLUMN1 = TABLENAME.COLUMN2", 
-                select.toSql());
+                select.write());
     }
     
     @Test
@@ -88,7 +88,7 @@ public class SelectTest {
         select.where("TABLE", "COLUMN2", "=", integer(0));
         
         assertEquals("SELECT TABLE.COLUMN1, TABLE.COLUMN2 FROM TABLE " +
-                "WHERE (TABLE.COLUMN1 > 2 AND TABLE.COLUMN2 = 0)", select.toSql());
+                "WHERE (TABLE.COLUMN1 > 2 AND TABLE.COLUMN2 = 0)", select.write());
     }
     
     @Test
@@ -101,7 +101,7 @@ public class SelectTest {
         select.where("TABLE", "COLUMN2", "=", "TABLE", "COLUMN3");
         
         assertEquals("SELECT TABLE.COLUMN1, TABLE.COLUMN2, TABLE.COLUMN3 FROM TABLE " +
-                "WHERE (TABLE.COLUMN1 > TABLE.COLUMN2 AND TABLE.COLUMN2 = TABLE.COLUMN3)", select.toSql());
+                "WHERE (TABLE.COLUMN1 > TABLE.COLUMN2 AND TABLE.COLUMN2 = TABLE.COLUMN3)", select.write());
     }
     
     @Test
@@ -119,7 +119,7 @@ public class SelectTest {
         select.where(criteria);
         
         assertEquals("SELECT TABLE.COLUMN1 FROM TABLE " +
-        		"WHERE (TABLE.COLUMN1 = TABLE.COLUMN2 OR TABLE.COLUMN3 BETWEEN 1 AND 10)", select.toSql());
+        		"WHERE (TABLE.COLUMN1 = TABLE.COLUMN2 OR TABLE.COLUMN3 BETWEEN 1 AND 10)", select.write());
     }
     
     @Test
@@ -131,7 +131,7 @@ public class SelectTest {
         select.where("TABLE", "COLUMN2", "=", "TABLE", "COLUMN3");
         
         assertEquals("SELECT TABLE.COLUMN1 FROM TABLE " +
-                "WHERE TABLE.COLUMN2 = TABLE.COLUMN3", select.toSql());
+                "WHERE TABLE.COLUMN2 = TABLE.COLUMN3", select.write());
     }
     
     @Test
@@ -141,7 +141,7 @@ public class SelectTest {
         select.where("TABLE1", "COLUMN1", "=", "TABLE2", "COLUMN2");
         
         assertEquals("SELECT TABLE1.COLUMN1 " +
-        		"FROM TABLE1, TABLE2 WHERE TABLE1.COLUMN1 = TABLE2.COLUMN2", select.toSql());
+        		"FROM TABLE1, TABLE2 WHERE TABLE1.COLUMN1 = TABLE2.COLUMN2", select.write());
     }
     
     @Test
@@ -151,7 +151,7 @@ public class SelectTest {
         select.join("OTHER_TABLE", "SOME_COLUMN", "=", "TABLE", "COLUMN");
         
         assertEquals("SELECT OTHER_TABLE.SOME_COLUMN FROM TABLE " +
-        		"INNER JOIN OTHER_TABLE ON OTHER_TABLE.SOME_COLUMN = TABLE.COLUMN", select.toSql());
+        		"INNER JOIN OTHER_TABLE ON OTHER_TABLE.SOME_COLUMN = TABLE.COLUMN", select.write());
         
     }
     
@@ -162,7 +162,7 @@ public class SelectTest {
         select.leftJoin("OTHER_TABLE", "SOME_COLUMN", "=", "TABLE", "COLUMN");
         
         assertEquals("SELECT OTHER_TABLE.SOME_COLUMN FROM TABLE " +
-                "LEFT JOIN OTHER_TABLE ON OTHER_TABLE.SOME_COLUMN = TABLE.COLUMN", select.toSql());
+                "LEFT JOIN OTHER_TABLE ON OTHER_TABLE.SOME_COLUMN = TABLE.COLUMN", select.write());
     }
     
     @Test
@@ -176,7 +176,7 @@ public class SelectTest {
         
         assertEquals("SELECT OTHER_TABLE.SOME_COLUMN, THIRD_TABLE.THIRD_COLUMN FROM TABLE " +
                 "INNER JOIN OTHER_TABLE ON OTHER_TABLE.SOME_COLUMN = TABLE.COLUMN " +
-                "LEFT JOIN THIRD_TABLE ON THIRD_TABLE.THIRD_COLUMN = TABLE.COLUMN", select.toSql());
+                "LEFT JOIN THIRD_TABLE ON THIRD_TABLE.THIRD_COLUMN = TABLE.COLUMN", select.write());
     }
     
     @Test
@@ -192,7 +192,7 @@ public class SelectTest {
                 "LEFT JOIN OTHER_TABLE ON " +
                 "((OTHER_TABLE.SOME_COLUMN = TABLE.COLUMN AND " +
                 "OTHER_TABLE.OTHER_COLUMN = TABLE.OTHER_COLUMN) AND " +
-                "OTHER_TABLE.OTHER_COLUMN = TABLE.OTHER_COLUMN)", select.toSql());
+                "OTHER_TABLE.OTHER_COLUMN = TABLE.OTHER_COLUMN)", select.write());
     }
     
     @Test
@@ -201,7 +201,7 @@ public class SelectTest {
         select.column("TABLE", "COLUMN");
         select.orderBy("COLUMN");
         
-        assertEquals("SELECT TABLE.COLUMN FROM TABLE ORDER BY COLUMN ASC", select.toSql());
+        assertEquals("SELECT TABLE.COLUMN FROM TABLE ORDER BY COLUMN ASC", select.write());
     }
     
     @Test
@@ -211,7 +211,7 @@ public class SelectTest {
         select.orderBy(col("OTHER_TABLE", "COL"));
         
         assertEquals("SELECT TABLE.COLUMN FROM TABLE, OTHER_TABLE " +
-        		"ORDER BY OTHER_TABLE.COL ASC", select.toSql());
+        		"ORDER BY OTHER_TABLE.COL ASC", select.write());
     }
     
     @Test
@@ -222,7 +222,7 @@ public class SelectTest {
         select.orderBy("COLUMN", OrderType.DESC);
         
         assertEquals("SELECT TABLE.COLUMN FROM TABLE, OTHER_TABLE " +
-                "ORDER BY OTHER_TABLE.COL ASC, COLUMN DESC", select.toSql());
+                "ORDER BY OTHER_TABLE.COL ASC, COLUMN DESC", select.write());
     }
 
     @Test
@@ -234,7 +234,7 @@ public class SelectTest {
         select.groupBy("COLUMN2");
         
         assertEquals("SELECT TABLE.COLUMN, TABLE.COLUMN2 FROM TABLE GROUP BY COLUMN, COLUMN2", 
-                select.toSql());
+                select.write());
     }
     
     @Test
@@ -242,7 +242,7 @@ public class SelectTest {
         Select select = new Select();
         select.table("TABLE");
         
-        assertEquals("SELECT * FROM TABLE", select.toSql());
+        assertEquals("SELECT * FROM TABLE", select.write());
     }
     
     @Test
@@ -253,7 +253,7 @@ public class SelectTest {
         Select select = new Select();
         select.column(subSelect, "ALIAS");
         
-        assertEquals("SELECT (SELECT \"VALUE\" AS ALIAS)", select.toSql());
+        assertEquals("SELECT (SELECT \"VALUE\" AS ALIAS)", select.write());
     }
     
     @Test
@@ -264,7 +264,7 @@ public class SelectTest {
         select.column(col(t1, "COL"));
         select.column(col(t2, "COL"));
         
-        assertEquals("SELECT T1.COL, T2.COL FROM TABLE AS T1, TABLE AS T2", select.toSql());
+        assertEquals("SELECT T1.COL, T2.COL FROM TABLE AS T1, TABLE AS T2", select.write());
     }
     
     @Test
@@ -273,7 +273,7 @@ public class SelectTest {
         select.column(integer(1), "NUMBER");
         select.column("TABLE", "COLUMN", "MY_COLUMN");
         
-        assertEquals("SELECT 1 AS NUMBER, TABLE.COLUMN AS MY_COLUMN FROM TABLE", select.toSql());
+        assertEquals("SELECT 1 AS NUMBER, TABLE.COLUMN AS MY_COLUMN FROM TABLE", select.write());
     }
 
 }

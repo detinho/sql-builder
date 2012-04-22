@@ -15,7 +15,7 @@ import br.com.detinho.sqlbuilder.join.InnerJoin;
 import br.com.detinho.sqlbuilder.join.Join;
 import br.com.detinho.sqlbuilder.join.LeftJoin;
 
-public class Select {
+public class Select implements Selectable {
 
     private Columns columns = new Columns();
     private Set<Table> tables = new LinkedHashSet<Table>();
@@ -45,7 +45,8 @@ public class Select {
         columns.add(col(table, column), alias);
     }
     
-    public String toSql() {
+    @Override
+    public String write() {
         collectTables();
         
         String sql = "SELECT ";
@@ -151,5 +152,9 @@ public class Select {
 
     public void table(String tableName) {
         tables.add(new Table(tableName));
+    }
+
+    @Override
+    public void addTable(Set<Table> tables) {
     }
 }
