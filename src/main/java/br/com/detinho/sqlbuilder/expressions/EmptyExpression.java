@@ -1,12 +1,19 @@
 package br.com.detinho.sqlbuilder.expressions;
 
-import br.com.detinho.sqlbuilder.Expression;
+import java.util.Set;
 
-public class EmptyExpression implements Expression {
+import br.com.detinho.sqlbuilder.Selectable;
+import br.com.detinho.sqlbuilder.Table;
+
+public class EmptyExpression implements Selectable {
 
     @Override
-    public String expression() {
+    public String write() {
         return "";
     }
-    
+
+    @Override
+    public void addTable(Set<Table> tables) {
+    }
+
 }

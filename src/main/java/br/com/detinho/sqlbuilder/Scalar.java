@@ -2,7 +2,7 @@ package br.com.detinho.sqlbuilder;
 
 import java.util.Set;
 
-public abstract class Scalar implements Selectable, Expression {
+public abstract class Scalar implements Selectable {
     
     @Override
     public void addTable(Set<Table> tables) {
@@ -14,11 +14,6 @@ public abstract class Scalar implements Selectable, Expression {
     }
 
     public abstract String scalarValue();
-    
-    @Override
-    public String expression() {
-        return scalarValue();
-    }
     
     @Override
     public boolean equals(Object other) {

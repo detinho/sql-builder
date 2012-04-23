@@ -1,23 +1,33 @@
 package br.com.detinho.sqlbuilder.expressions;
 
-import br.com.detinho.sqlbuilder.Expression;
+import java.util.Set;
 
-public class ArithmeticExpression implements Expression {
-    private final Expression operand1;
+import br.com.detinho.sqlbuilder.Selectable;
+import br.com.detinho.sqlbuilder.Table;
+
+public class ArithmeticExpression implements Selectable {
+    private final Selectable operand1;
     private final String operator;
-    private final Expression operand2;
+    private final Selectable operand2;
 
-    public ArithmeticExpression(Expression operand1, String operator, Expression operand2) {
+    public ArithmeticExpression(Selectable operand1, String operator, Selectable operand2) {
         this.operand1 = operand1;
         this.operator = operator;
         this.operand2 = operand2;
     }
     
     @Override
-    public String expression() {
-        if (operand1 instanceof EmptyExpression) {
-            return operand2.expression();
+    public String write() {
+        String exp = operand1.write();
+        if ("".equals(exp)) {
+            return operand2.write();
         }
-        return operand1.expression() + operator + operand2.expression();
+        return operand1.write() + operator + operand2.write();
+    }
+
+    @Override
+    public void addTable(Set<Table> tables) {
+        operand1.addTable(tables);
+        operand2.addTable(tables);
     }
 }
