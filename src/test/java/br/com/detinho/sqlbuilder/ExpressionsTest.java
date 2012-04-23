@@ -1,12 +1,7 @@
 package br.com.detinho.sqlbuilder;
 
-import static br.com.detinho.sqlbuilder.SqlBuilder.col;
 import static br.com.detinho.sqlbuilder.SqlBuilder.integer;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
-import java.util.HashSet;
-import java.util.Set;
 
 import org.junit.Test;
 
