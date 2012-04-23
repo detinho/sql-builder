@@ -1,2 +1,10 @@
 To help build sql statements (Select, Insert, Update, Delete).
 This is heavily inspired on http://code.google.com/p/squiggle-sql/.
+
+TODO:
+=====
+* Union
+* Parentheses in expressions
+* Remove joins
+* Remove columns
+* Remove where clauses (?)
